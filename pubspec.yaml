@@ -1,0 +1,15 @@
+name: errors
+description: Multi exception handler
+version: 0.0.1
+maintainer: Robbert Halff (@rhalff)
+authors: 
+- Robbert Halff <rob.halff@gmail.com>
+
+homepage: https://github.com/dartlib/errors.git
+
+environment:
+  sdk: '>=2.0.0-dev<3.0.0'
+
+dev_dependencies:
+  test: 
+
