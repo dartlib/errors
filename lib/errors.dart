@@ -19,11 +19,11 @@ abstract class ErrorHandler<T> {
 /// This exception is thrown in case Errors is unable to find a handler for the exception.
 ///
 class Errors {
-  final _handlers = Map<Type, ErrorHandler<dynamic>>();
+  final _handlers = Map<String, ErrorHandler<dynamic>>();
 
   /// [handler] Error Handler
   addHandler(ErrorHandler handler) {
-    final type = handler.getType();
+    final type = handler.getType().toString();
     assert(!_handlers.containsKey(type),
         'ErrorHandler for Type ${type} is already registered.');
 
@@ -42,7 +42,7 @@ class Errors {
   }
 
   onError(Object error, StackTrace stackTrace) {
-    final handler = _handlers[error.runtimeType];
+    final handler = _handlers[error.runtimeType.toString()];
 
     if (handler != null) {
       handler.handle(error, stackTrace);
