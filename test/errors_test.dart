@@ -11,6 +11,11 @@ class AnotherException implements Exception {
   String toString() => 'AnotherException';
 }
 
+class UnhandledException implements Exception {
+  const UnhandledException();
+  String toString() => 'UnhandledException';
+}
+
 class SomeExceptionHandler extends ErrorHandler<SomeException> {
   bool check;
   SomeExceptionHandler();
@@ -57,16 +62,15 @@ void main() {
     expect(someExceptionHandler.check, true);
   });
 
-  test('Throws ErrorHandlerNotFoundException if no exception handler found',
-      () {
+  test('Rethrows if no exception handler found', () {
     expect(
       () => errors.handleError(
         () {
-          throw Exception();
+          throw UnhandledException();
         },
       ),
       throwsA(
-        TypeMatcher<ErrorHandlerNotFoundException>(),
+        TypeMatcher<UnhandledException>(),
       ),
     );
   });

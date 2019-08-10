@@ -1,6 +1,6 @@
 name: errors
 description: Multi exception handler
-version: 0.0.1
+version: 0.1.0
 maintainer: Robbert Halff (@rhalff)
 authors: 
 - Robbert Halff <rob.halff@gmail.com>
