@@ -18,12 +18,6 @@ abstract class ErrorHandler<T> {
 
 /// This exception is thrown in case Errors is unable to find a handler for the exception.
 ///
-class ErrorHandlerNotFoundException implements Exception {
-  final runtimeType;
-  const ErrorHandlerNotFoundException(this.runtimeType);
-  String toString() => 'ErrorHandlerNotFoundException for type $runtimeType';
-}
-
 class Errors {
   final _handlers = Map<Type, ErrorHandler<dynamic>>();
 
@@ -41,7 +35,9 @@ class Errors {
     try {
       func();
     } catch (error, stackTrace) {
-      onError(error, stackTrace);
+      if (!onError(error, stackTrace)) {
+        rethrow;
+      }
     }
   }
 
@@ -50,8 +46,10 @@ class Errors {
 
     if (handler != null) {
       handler.handle(error, stackTrace);
-    } else {
-      throw ErrorHandlerNotFoundException(error.runtimeType);
+
+      return true;
     }
+
+    return false;
   }
 }
